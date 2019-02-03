@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BMI Calculator</string>
+    <string name="authors">NoraCodes and Nico Meersman</string>
+    <string name="disclaimer">⚠ Body Mass Index is a poor indicator of general health. Consult a physician before beginning any diet or exercise routine.</string>
+    <string name="height_major_label">Feet Tall</string>
+    <string name="height_minor_label">Inches Tall</string>
+    <string name="weight_label">Weight in Pounds</string>
+    <string name="bmi_result_label">Body Mass Index</string>
+    <string name="calculate_bmi">Compute BMI</string>
+</resources>
