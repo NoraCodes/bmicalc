@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText heightMinorTextEntry;
     private EditText weightTextEntry;
     private TextView bmiResultTextView;
+    private TextView bmiClassTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         heightMinorTextEntry = findViewById(R.id.heightMinorTextEntry);
         weightTextEntry = findViewById(R.id.weightTextEntry);
         bmiResultTextView = findViewById(R.id.bmiResultTextView);
+        bmiClassTextView = findViewById(R.id.bmiClassTextView);
     }
 
     private boolean checkFieldsNotEmpty() {
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             double bmi = 703.0 * (double) weightPounds/ Math.pow((double) heightInches, 2);
             String bmiClass = calculateBmiClass(bmi);
             bmiResultTextView.setText(String.format("%.2f", bmi));
+            bmiClassTextView.setText(bmiClass);
         }
     }
 }

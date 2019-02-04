@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -86,10 +87,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/weight_label"
         app:layout_constraintBottom_toTopOf="@+id/weightTextEntry"
         app:layout_constraintEnd_toEndOf="@+id/weightTextEntry"
-        app:layout_constraintStart_toStartOf="@+id/weightTextEntry" />
+        app:layout_constraintStart_toStartOf="@+id/weightTextEntry"
+        android:text="@string/weight_label" />
 
     <EditText
         android:id="@+id/weightTextEntry"
@@ -112,7 +113,18 @@
         app:layout_constraintEnd_toEndOf="@+id/bmiResultTextView"
         app:layout_constraintStart_toStartOf="@+id/bmiResultTextView"
         app:layout_constraintTop_toBottomOf="@+id/weightTextEntry"
-        tools:text="@string/bmi_result_label" />
+        android:text="@string/bmi_result_label" />
+
+    <TextView
+        android:id="@+id/bmiResultLabelTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="@+id/bmiClassTextView"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="@+id/bmiClassTextView"
+        app:layout_constraintTop_toBottomOf="@+id/weightTextEntry"
+        android:text="@string/bmi_result_label" />
 
     <TextView
         android:id="@+id/bmiResultTextView"
@@ -124,18 +136,35 @@
         android:text="0.00"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.192"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bmiResultLabelTextView" />
+
+    <TextView
+        android:id="@+id/bmiClassTextView"
+        android:layout_width="146dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:gravity="center"
+        android:text="Very Severely Underweight"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bmiResultTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/bmiResultTextView" />
 
     <Button
         android:id="@+id/calculateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/bmiResultTextView"
-        app:layout_constraintStart_toStartOf="@+id/bmiResultTextView"
-        app:layout_constraintTop_toBottomOf="@+id/bmiResultTextView"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="onClickCalculate"
         android:text="@string/calculate_bmi"
-        android:onClick="onClickCalculate"/>
+        app:layout_constraintBottom_toTopOf="@id/disclaimerTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bmiClassTextView" />
 
 </android.support.constraint.ConstraintLayout>
