@@ -135,6 +135,7 @@
         app:layout_constraintEnd_toEndOf="@+id/bmiResultTextView"
         app:layout_constraintStart_toStartOf="@+id/bmiResultTextView"
         app:layout_constraintTop_toBottomOf="@+id/bmiResultTextView"
-        tools:text="@string/calculate_bmi" />
+        tools:text="@string/calculate_bmi"
+        android:onClick="onClickCalculate"/>
 
 </android.support.constraint.ConstraintLayout>

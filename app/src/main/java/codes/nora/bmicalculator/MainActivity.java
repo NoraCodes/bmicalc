@@ -19,12 +19,73 @@ package codes.nora.bmicalculator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText heightMajorTextEntry;
+    private EditText heightMinorTextEntry;
+    private EditText weightTextEntry;
+    private TextView bmiResultTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        heightMajorTextEntry = findViewById(R.id.heightMajorTextEntry);
+        heightMinorTextEntry = findViewById(R.id.heightMinorTextEntry);
+        weightTextEntry = findViewById(R.id.weightTextEntry);
+        bmiResultTextView = findViewById(R.id.bmiResultTextView);
+    }
+
+    private boolean checkFieldsNotEmpty() {
+        return !(heightMinorTextEntry.getText().equals("")
+                || heightMajorTextEntry.getText().equals("")
+                || weightTextEntry.getText().equals(""));
+    }
+
+    private boolean checkFieldsParseAsInteger() {
+        try {
+            Integer.parseInt(heightMajorTextEntry.getText().toString());
+            Integer.parseInt(heightMinorTextEntry.getText().toString());
+            Integer.parseInt(weightTextEntry.getText().toString());
+            return true;
+        } catch (NumberFormatException _) {
+            return false;
+        }
+    }
+
+    private String calculateBmiClass(double bmi) {
+        if (bmi < 15.0) {
+            return "Very Severely Underweight";
+        } else if (bmi < 16) {
+            return "Severely Underweight";
+        } else if (bmi < 18.5) {
+            return "Underweight";
+        } else if (bmi < 25 ) {
+            return "Healthy Weight";
+        } else if (bmi < 30) {
+            return "Overweight";
+        } else if (bmi < 35) {
+            return "Obese Class I";
+        } else if (bmi < 40) {
+            return "Obese Class II";
+        } else {
+            return "Obese Class III";
+        }
+    }
+
+    public void onClickCalculate(View v) {
+        if (checkFieldsNotEmpty() && checkFieldsParseAsInteger()) {
+            int heightFeet = Integer.parseInt(heightMajorTextEntry.getText().toString());
+            int heightFractionInches = Integer.parseInt(heightMinorTextEntry.getText().toString());
+            int heightInches = (heightFeet) * 12 + heightFractionInches;
+            int weightPounds = Integer.parseInt(weightTextEntry.getText().toString());
+            double bmi = 703.0 * (double) weightPounds/ Math.pow((double) heightInches, 2);
+            String bmiClass = calculateBmiClass(bmi);
+            bmiResultTextView.setText(String.format("%.2f", bmi));
+        }
     }
 }
