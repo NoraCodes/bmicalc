@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText weightTextEntry;
     private TextView bmiResultTextView;
     private TextView bmiClassTextView;
+    private RadioGroup unitSelectRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         weightTextEntry = findViewById(R.id.weightTextEntry);
         bmiResultTextView = findViewById(R.id.bmiResultTextView);
         bmiClassTextView = findViewById(R.id.bmiClassTextView);
+        unitSelectRadioGroup = findViewById(R.id.unitSelectRadioGroup);
     }
 
     private boolean checkFieldsNotEmpty() {
@@ -79,16 +82,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickCalculate(View v) {
+    private void onClickImperial() {
         if (checkFieldsNotEmpty() && checkFieldsParseAsInteger()) {
             int heightFeet = Integer.parseInt(heightMajorTextEntry.getText().toString());
             int heightFractionInches = Integer.parseInt(heightMinorTextEntry.getText().toString());
             int heightInches = (heightFeet) * 12 + heightFractionInches;
             int weightPounds = Integer.parseInt(weightTextEntry.getText().toString());
-            double bmi = 703.0 * (double) weightPounds/ Math.pow((double) heightInches, 2);
+            double bmi = 703.0 * (double) weightPounds / Math.pow((double) heightInches, 2);
             String bmiClass = calculateBmiClass(bmi);
             bmiResultTextView.setText(String.format("%.2f", bmi));
             bmiClassTextView.setText(bmiClass);
+        }
+    }
+
+    private void onClickMetric() {
+        if (checkFieldsNotEmpty() && checkFieldsParseAsInteger()) {
+            int heightFractionMeters = Integer.parseInt(heightMajorTextEntry.getText().toString());
+            int heightFractionCentimeters = Integer.parseInt(heightMinorTextEntry.getText().toString());
+            double heightMeters = (double) heightFractionMeters + ((double) heightFractionCentimeters / 100.0);
+            int weightKilos = Integer.parseInt(weightTextEntry.getText().toString());
+            double bmi = weightKilos / Math.pow((double) heightMeters, 2);
+            String bmiClass = calculateBmiClass(bmi);
+            bmiResultTextView.setText(String.format("%.2f", bmi));
+            bmiClassTextView.setText(bmiClass);
+        }
+    }
+
+    public void onClickCalculate(View v) {
+        int radioButtonID = unitSelectRadioGroup.getCheckedRadioButtonId();
+        if (radioButtonID == R.id.metricRadioButton) {
+            onClickMetric();
+        } else if (radioButtonID == R.id.imperialRadioButton) {
+            onClickImperial();
         }
     }
 }
