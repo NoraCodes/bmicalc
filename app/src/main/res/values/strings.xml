@@ -2,9 +2,12 @@
     <string name="app_name">BMI Calculator</string>
     <string name="authors">NoraCodes and Nico Meersman</string>
     <string name="disclaimer">⚠ Body Mass Index is a poor indicator of general health. Consult a physician before beginning any diet or exercise routine.</string>
-    <string name="height_major_label">Height in Feet</string>
-    <string name="height_minor_label">Height in Inches</string>
-    <string name="weight_label">Weight in Pounds</string>
+    <string name="height_major_label_imperial">Feet</string>
+    <string name="height_minor_label_imperial">Inches</string>
+    <string name="height_major_label_metric">Meters</string>
+    <string name="height_minor_label_metric">Centimeters</string>
+    <string name="weight_label_imperial">Pounds</string>
+    <string name="weight_label_metric">Kilograms</string>
     <string name="bmi_result_label">Body Mass Index</string>
     <string name="calculate_bmi">Compute BMI</string>
     <string name="imperial_label">Imperial Units</string>

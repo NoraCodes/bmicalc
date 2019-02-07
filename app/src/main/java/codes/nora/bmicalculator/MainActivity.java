@@ -126,22 +126,14 @@ public class MainActivity extends AppCompatActivity {
     public void changeText(View v)
     {
         int radioButtonID = unitSelectRadioGroup.getCheckedRadioButtonId();
-        //The phrases are hardcoded due to the app always starting
-        //in Imperial units, despite android:check="false" in activity_main
         if (radioButtonID == R.id.metricRadioButton) {
-         //   String unit = getString(R.string.weight_label);
-            weightTextView.setText("Weight in Kilograms");
-         //   unit = getString(R.string.height_minor_label);
-            heightMinorTextView.setText("Height in Centimeters");
-         //   unit = getString(R.string.height_major_label);
-            heightMajorTextView.setText("Height in Meters");
+            weightTextView.setText(R.string.weight_label_metric);
+            heightMinorTextView.setText(R.string.height_minor_label_metric);
+            heightMajorTextView.setText(R.string.height_major_label_metric);
         } else if (radioButtonID == R.id.imperialRadioButton) {
-         //   String unit = getString(R.string.weight_label);
-            weightTextView.setText("Weight in Pounds");
-         //   unit = getString(R.string.height_minor_label);
-            heightMinorTextView.setText("Height in Inches");
-         //   unit = getString(R.string.height_major_label);
-            heightMajorTextView.setText("Height in Feet");
+            weightTextView.setText(R.string.weight_label_imperial);
+            heightMinorTextView.setText(R.string.height_minor_label_imperial);
+            heightMajorTextView.setText(R.string.height_major_label_imperial);
         }
     }
 }
