@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/unitSelectRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton" />
 
     <EditText
         android:id="@+id/heightMajorTextEntry"
@@ -50,7 +50,7 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/unitSelectRadioGroup" />
 
     <EditText
         android:id="@+id/heightMinorTextEntry"
@@ -61,7 +61,7 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/unitSelectRadioGroup" />
 
     <TextView
         android:id="@+id/heightMajorTextView"
@@ -73,7 +73,7 @@
         app:layout_constraintBottom_toTopOf="@+id/heightMajorTextEntry"
         app:layout_constraintEnd_toEndOf="@+id/heightMajorTextEntry"
         app:layout_constraintStart_toStartOf="@+id/heightMajorTextEntry"
-        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/unitSelectRadioGroup" />
 
     <TextView
         android:id="@+id/heightMinorTextView"
@@ -85,7 +85,7 @@
         app:layout_constraintBottom_toTopOf="@+id/heightMinorTextEntry"
         app:layout_constraintEnd_toEndOf="@+id/heightMinorTextEntry"
         app:layout_constraintStart_toStartOf="@+id/heightMinorTextEntry"
-        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/unitSelectRadioGroup" />
 
     <TextView
         android:id="@+id/weightTextView"
@@ -152,7 +152,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="38dp"
         android:gravity="center"
-        android:text="Very Severely Underweight"
+        android:text=""
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/bmiResultTextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,15 +180,19 @@
         android:layout_marginTop="8sp"
         android:checkedButton="@id/imperialRadioButton"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@id/calculateButton"
-        app:layout_constraintStart_toStartOf="@id/calculateButton"
-        app:layout_constraintTop_toBottomOf="@id/calculateButton">
+        app:layout_constraintEnd_toEndOf="@+id/subtitleTextView"
+        app:layout_constraintStart_toStartOf="@+id/subtitleTextView"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleTextView">
+
+        <!--Despite the android:checked="false", the app always starts with Imperial Units selected-->
 
         <RadioButton
             android:id="@+id/imperialRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:checked="false"
+            android:onClick="changeText"
             android:text="@string/imperial_label" />
 
         <RadioButton
@@ -196,6 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
+            android:onClick="changeText"
             android:text="@string/metric_label" />
     </RadioGroup>
 

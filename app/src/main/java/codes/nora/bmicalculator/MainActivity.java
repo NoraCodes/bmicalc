@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView bmiResultTextView;
     private TextView bmiClassTextView;
     private RadioGroup unitSelectRadioGroup;
+    private TextView weightTextView;
+    private TextView heightMinorTextView;
+    private TextView heightMajorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         bmiResultTextView = findViewById(R.id.bmiResultTextView);
         bmiClassTextView = findViewById(R.id.bmiClassTextView);
         unitSelectRadioGroup = findViewById(R.id.unitSelectRadioGroup);
+        weightTextView = findViewById(R.id.weightTextView);
+        heightMinorTextView = findViewById(R.id.heightMinorTextView);
+        heightMajorTextView = findViewById(R.id.heightMajorTextView);
     }
 
     private boolean checkFieldsNotEmpty() {
@@ -114,6 +120,28 @@ public class MainActivity extends AppCompatActivity {
             onClickMetric();
         } else if (radioButtonID == R.id.imperialRadioButton) {
             onClickImperial();
+        }
+    }
+
+    public void changeText(View v)
+    {
+        int radioButtonID = unitSelectRadioGroup.getCheckedRadioButtonId();
+        //The phrases are hardcoded due to the app always starting
+        //in Imperial units, despite android:check="false" in activity_main
+        if (radioButtonID == R.id.metricRadioButton) {
+         //   String unit = getString(R.string.weight_label);
+            weightTextView.setText("Weight in Kilograms");
+         //   unit = getString(R.string.height_minor_label);
+            heightMinorTextView.setText("Height in Centimeters");
+         //   unit = getString(R.string.height_major_label);
+            heightMajorTextView.setText("Height in Meters");
+        } else if (radioButtonID == R.id.imperialRadioButton) {
+         //   String unit = getString(R.string.weight_label);
+            weightTextView.setText("Weight in Pounds");
+         //   unit = getString(R.string.height_minor_label);
+            heightMinorTextView.setText("Height in Inches");
+         //   unit = getString(R.string.height_major_label);
+            heightMajorTextView.setText("Height in Feet");
         }
     }
 }
