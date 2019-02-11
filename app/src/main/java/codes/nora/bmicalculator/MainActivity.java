@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText heightMajorTextEntry;
@@ -51,13 +53,13 @@ public class MainActivity extends AppCompatActivity {
         heightMajorTextView = findViewById(R.id.heightMajorTextView);
     }
 
-    private boolean checkFieldsNotEmpty() {
+    private boolean fieldsAreNotEmpty() {
         return !(heightMinorTextEntry.getText().equals("")
                 || heightMajorTextEntry.getText().equals("")
                 || weightTextEntry.getText().equals(""));
     }
 
-    private boolean checkFieldsParseAsInteger() {
+    private boolean fieldsParseAsIntegers() {
         try {
             Integer.parseInt(heightMajorTextEntry.getText().toString());
             Integer.parseInt(heightMinorTextEntry.getText().toString());
@@ -68,59 +70,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String calculateBmiClass(double bmi) {
-        if (bmi < 15.0) {
-            return "Very Severely Underweight";
-        } else if (bmi < 16) {
-            return "Severely Underweight";
-        } else if (bmi < 18.5) {
-            return "Underweight";
-        } else if (bmi < 25 ) {
-            return "Healthy Weight";
-        } else if (bmi < 30) {
-            return "Overweight";
-        } else if (bmi < 35) {
-            return "Obese Class I";
-        } else if (bmi < 40) {
-            return "Obese Class II";
-        } else {
-            return "Obese Class III";
-        }
-    }
-
-    private void onClickImperial() {
-        if (checkFieldsNotEmpty() && checkFieldsParseAsInteger()) {
-            int heightFeet = Integer.parseInt(heightMajorTextEntry.getText().toString());
-            int heightFractionInches = Integer.parseInt(heightMinorTextEntry.getText().toString());
-            int heightInches = (heightFeet) * 12 + heightFractionInches;
-            int weightPounds = Integer.parseInt(weightTextEntry.getText().toString());
-            double bmi = 703.0 * (double) weightPounds / Math.pow((double) heightInches, 2);
-            String bmiClass = calculateBmiClass(bmi);
-            bmiResultTextView.setText(String.format("%.2f", bmi));
-            bmiClassTextView.setText(bmiClass);
-        }
-    }
-
-    private void onClickMetric() {
-        if (checkFieldsNotEmpty() && checkFieldsParseAsInteger()) {
-            int heightFractionMeters = Integer.parseInt(heightMajorTextEntry.getText().toString());
-            int heightFractionCentimeters = Integer.parseInt(heightMinorTextEntry.getText().toString());
-            double heightMeters = (double) heightFractionMeters + ((double) heightFractionCentimeters / 100.0);
-            int weightKilos = Integer.parseInt(weightTextEntry.getText().toString());
-            double bmi = weightKilos / Math.pow((double) heightMeters, 2);
-            String bmiClass = calculateBmiClass(bmi);
-            bmiResultTextView.setText(String.format("%.2f", bmi));
-            bmiClassTextView.setText(bmiClass);
-        }
-    }
-
     public void onClickCalculate(View v) {
-        int radioButtonID = unitSelectRadioGroup.getCheckedRadioButtonId();
-        if (radioButtonID == R.id.metricRadioButton) {
-            onClickMetric();
-        } else if (radioButtonID == R.id.imperialRadioButton) {
-            onClickImperial();
+        if (fieldsAreNotEmpty() && fieldsParseAsIntegers()) {
+            int heightMajor = Integer.parseInt(heightMajorTextEntry.getText().toString());
+            int heightMinor = Integer.parseInt(heightMinorTextEntry.getText().toString());
+            int weight = Integer.parseInt(weightTextEntry.getText().toString());
+            int radioButtonID = unitSelectRadioGroup.getCheckedRadioButtonId();
+
+            UnitTranslator unitTranslator;
+            if (radioButtonID == R.id.metricRadioButton) {
+                unitTranslator = new UnitTranslator().metric(heightMajor, heightMinor, weight);
+            } else if (radioButtonID == R.id.imperialRadioButton) {
+                unitTranslator = new UnitTranslator().imperial(heightMajor, heightMinor, weight);
+            } else {
+                return;
+            }
+
+            double bmi = unitTranslator.getBmi();
+            String bmiClass = unitTranslator.getBmiClass();
+            bmiResultTextView.setText(String.format(Locale.ENGLISH, "%.2f", bmi));
+            bmiClassTextView.setText(bmiClass);
         }
+
+
     }
 
     public void changeText(View v)
